@@ -1,0 +1,9 @@
+pluginManagement {
+    repositories {
+        // The ModDevGradle plugin itself is resolved from the local Gradle cache (offline machine).
+        gradlePluginPortal()
+        maven { url = 'https://maven.neoforged.net/releases' }
+    }
+}
+
+rootProject.name = 'thaumaturge-research-helper'

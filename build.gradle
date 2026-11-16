@@ -1,0 +1,106 @@
+plugins {
+    id 'idea'
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.140'
+}
+
+group = project.mod_group_id
+version = project.mod_version
+base {
+    archivesName = "${project.mod_id}-${project.minecraft_version}"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(project.java_version as int)
+    }
+    withSourcesJar()
+}
+
+// Minecraft 1.21.1 / NeoForge 21.1.x ------------------------------------------------------------
+neoForge {
+    version = project.neo_version
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+    }
+
+    mods {
+        // Must match mod_id: this binds the source set to the mod for the dev runs.
+        create(project.mod_id) {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+// This machine cannot reach maven.neoforged.net. A local Maven-format mirror of the NeoForge
+// artifacts is used instead, so dependency resolution and `createMinecraftArtifacts` work offline.
+// Configure it with `neoforge_local_mirror` in gradle.properties (empty = disabled).
+def neoforgeMirror = (project.findProperty('neoforge_local_mirror') ?: '').toString().trim()
+if (!neoforgeMirror.isEmpty()) {
+    def mirrorDir = file(neoforgeMirror)
+    if (mirrorDir.isDirectory()) {
+        repositories {
+            maven {
+                name = 'NeoForgeLocalMirror'
+                url = mirrorDir.toURI()
+                content { includeGroup 'net.neoforged' }
+            }
+        }
+    } else {
+        logger.warn("neoforge_local_mirror points to a missing directory, ignoring it: ${mirrorDir}")
+    }
+}
+
+// Mod dependencies ------------------------------------------------------------------------------
+// Thaumaturge and its own runtime dependencies are plain mod jars taken from the local modpack
+// instance (there is no network to a Maven repository that hosts them).
+//   compileOnly  - compile against Thaumaturge's classes without bundling them
+//   runtimeOnly  - put the same jars on the development runtime so the dev client loads them
+// NeoForge's development launch discovers mods on the classpath, so both are enough.
+dependencies {
+    compileOnly files("libs/thaumaturge-${project.minecraft_version}-NeoForge-${project.thaumaturge_version}.jar")
+    runtimeOnly files("libs/thaumaturge-${project.minecraft_version}-NeoForge-${project.thaumaturge_version}.jar")
+
+    // Required at runtime by Thaumaturge itself (declared in its neoforge.mods.toml).
+    runtimeOnly files('libs/lithostitched-1.8.1-neoforge-21.1.jar')
+    runtimeOnly files('libs/curios-neoforge-9.5.1+1.21.1.jar')
+}
+
+// Mod metadata (`META-INF/neoforge.mods.toml`) template expansion --------------------------------
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version          : project.minecraft_version,
+            minecraft_version_range    : project.minecraft_version_range,
+            neo_version                : project.neo_version,
+            neo_version_range          : project.neo_version_range,
+            loader_version_range       : project.loader_version_range,
+            thaumaturge_version        : project.thaumaturge_version,
+            thaumaturge_version_range  : project.thaumaturge_version_range,
+            mod_id                     : project.mod_id,
+            mod_name                   : project.mod_name,
+            mod_license                : project.mod_license,
+            mod_version                : project.mod_version,
+            mod_description            : project.mod_description
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = project.java_version as int
+}

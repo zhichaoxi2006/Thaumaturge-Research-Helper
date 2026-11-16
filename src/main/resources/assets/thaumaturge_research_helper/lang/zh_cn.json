@@ -1,0 +1,23 @@
+{
+  "key.categories.thaumaturge_research_helper": "神秘研究助手",
+  "key.thaumaturge_research_helper.auto_research": "开关自动研究",
+
+  "gui.thaumaturge_research_helper.auto_research.state.on": "自动研究：进行中",
+  "gui.thaumaturge_research_helper.auto_research.state.off": "自动研究：空闲",
+  "gui.thaumaturge_research_helper.auto_research.state.craft": "正在合成要素",
+  "gui.thaumaturge_research_helper.auto_research.key": "按 %s 开关",
+
+  "gui.thaumaturge_research_helper.craft.progress": "%s — 还剩 %s 次合成",
+  "gui.thaumaturge_research_helper.craft.hint": "中键点击要素：自动合成一个",
+
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_note": "研究台上没有研究笔记",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_ink": "书写工具已经没有墨水了",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_aspects": "要素不足，无法连接所有锚点",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_root": "这张笔记没有可用的锚点",
+  "gui.thaumaturge_research_helper.auto_research.stopped.place_failed": "要素放置失败",
+  "gui.thaumaturge_research_helper.auto_research.stopped.combine_failed": "要素合成失败",
+  "gui.thaumaturge_research_helper.auto_research.stopped.done": "研究已完成",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_recipe": "基础要素没有配方，无法合成",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_components": "缺少可以用于合成的组成要素",
+  "gui.thaumaturge_research_helper.auto_research.stopped.craft_done": "要素已经进入要素池"
+}

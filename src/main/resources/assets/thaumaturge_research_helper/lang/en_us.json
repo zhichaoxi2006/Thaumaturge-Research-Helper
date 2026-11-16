@@ -1,0 +1,23 @@
+{
+  "key.categories.thaumaturge_research_helper": "Thaumaturge Research Helper",
+  "key.thaumaturge_research_helper.auto_research": "Toggle auto research",
+
+  "gui.thaumaturge_research_helper.auto_research.state.on": "Auto research: running",
+  "gui.thaumaturge_research_helper.auto_research.state.off": "Auto research: idle",
+  "gui.thaumaturge_research_helper.auto_research.state.craft": "Synthesising aspects",
+  "gui.thaumaturge_research_helper.auto_research.key": "%s to toggle",
+
+  "gui.thaumaturge_research_helper.craft.progress": "%s - %s combination(s) left",
+  "gui.thaumaturge_research_helper.craft.hint": "Middle-click an aspect to synthesise one",
+
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_note": "No research note on the table",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_ink": "The scribing tools are out of ink",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_aspects": "Not enough aspects to connect the anchors",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_root": "This note has no usable anchor to start from",
+  "gui.thaumaturge_research_helper.auto_research.stopped.place_failed": "The aspect could not be placed",
+  "gui.thaumaturge_research_helper.auto_research.stopped.combine_failed": "The aspects could not be combined",
+  "gui.thaumaturge_research_helper.auto_research.stopped.done": "Research complete",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_recipe": "A primal aspect has no recipe",
+  "gui.thaumaturge_research_helper.auto_research.stopped.no_components": "Not enough component aspects to combine",
+  "gui.thaumaturge_research_helper.auto_research.stopped.craft_done": "The aspect is in your pool"
+}
